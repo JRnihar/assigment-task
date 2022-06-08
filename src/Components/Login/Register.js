@@ -1,7 +1,12 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 const Register = () => {
+    const { register, formState: { errors }, handleSubmit } = useForm();
+    const onSubmit = data => {
+        console.log(data);
+    }
     return (
         <section className='sm-vh-100' style={{ backgroundColor: '#0a0e14' }}>
             <div class="container  py-5">
@@ -16,7 +21,7 @@ const Register = () => {
                                 <div class="col-md-6 col-lg-7 d-flex align-items-center">
                                     <div class="card-body p-4 p-lg-5 text-black">
 
-                                        <form>
+                                        <form onSubmit={handleSubmit(onSubmit)}>
 
                                             <div class="d-flex align-items-center mb-3 pb-1">
                                                 <i class="fas fa-cubes fa-2x me-3" style={{ color: '#ff6219' }}></i>
@@ -26,17 +31,59 @@ const Register = () => {
                                             <h5 class="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px', }}>We are a team of designers, developers, and strategists, building elevated products by turning ideas into engaging digital products </h5>
 
                                             <div class="form-outline mb-4">
-                                                <input type="email" id="form2Example17" placeholder='Email address' class="form-control form-control-lg" />
-                                                {/* <label class="form-label" for="form2Example17">Email address</label> */}
+                                                <input 
+                                                type="email" 
+                                                id="form2Example17" 
+                                                placeholder='Email address' 
+                                                class="form-control form-control-lg"
+                                                    {...register("email", {
+                                                        required: {
+                                                            value: true,
+                                                            message: 'Email is Required'
+                                                        },
+                                                        pattern: {
+                                                            value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                                                            message: 'Provide a valid Email'
+                                                        }
+                                                    })}
+
+                                                />
+                                                <label className="label mt-2">
+                                                    {errors.email?.type === 'required' && <span className="label-text-alt text-danger mt-2">{errors.email.message}</span>}
+                                                    {errors.email?.type === 'pattern' && <span className="label-text-alt text-danger mt-2">{errors.email.message}</span>}
+                                                </label>
+                                           
+                                                
                                             </div>
 
                                             <div class="form-outline mb-4">
-                                                <input type="password" id="form2Example27" placeholder='Password' class="form-control form-control-lg" />
-                                                {/* <label class="form-label" for="form2Example27">Password</label> */}
+                                                <input
+                                                    type="password"
+                                                    placeholder='Password'
+                                                    id="form2Example27"
+                                                    class="form-control form-control-lg"
+
+                                                    {...register("password", {
+                                                        required: {
+                                                            value: true,
+                                                            message: 'Password is Required'
+                                                        },
+                                                        minLength: {
+                                                            value: 6,
+                                                            message: 'Must be 6 characters or longer'
+                                                        }
+                                                    })}
+                                                />
+                                                <label className="label mt-2">
+                                                    {errors.password?.type === 'required' && <span className="label-text-alt text-danger">{errors.password.message}</span>}
+                                                    {errors.password?.type === 'minLength' && <span className="label-text-alt text-danger">{errors.password.message}</span>}
+                                                </label>
+                                                    
+                                                
                                             </div>
 
                                             <div class="pt-1 d-grid mb-4">
-                                                <button class="btn btn-outline-dark btn-lg " type="button">Sing Up</button>
+                                                <button class="btn btn-outline-dark btn-lg " type="submit" value='Sing Up'>Sing Up</button>
 
                                             </div>
 
