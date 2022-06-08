@@ -6,7 +6,7 @@ const Header = () => {
     return (
         <Navbar bg="light" expand="lg">
             <Container fluid>
-                <Navbar.Brand> <img style={{width: '100px'}} src="https://vouchdigital.africa/wp-content/uploads/2021/02/cropped-positive.png.webp" alt=""  /> </Navbar.Brand>
+                <Navbar.Brand> <img style={{ width: '100px' }} src="https://thevouch.digital/wp-content/uploads/2020/10/Group-1-2.png" alt=""  /> </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav

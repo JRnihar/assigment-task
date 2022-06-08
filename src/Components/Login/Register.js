@@ -20,19 +20,19 @@ const Register = () => {
 
                                             <div class="d-flex align-items-center mb-3 pb-1">
                                                 <i class="fas fa-cubes fa-2x me-3" style={{ color: '#ff6219' }}></i>
-                                                <img style={{ width: '200px' }} src="https://vouchdigital.africa/wp-content/uploads/2021/02/cropped-positive.png.webp" alt="" />
+                                                <img style={{ width: '200px' }} src="https://thevouch.digital/wp-content/uploads/2020/10/Group-1-2.png" alt="" />
                                             </div>
                                             <h2 className='text-center' style={{ color: '#00ffc3' }}>Please Sing Up</h2>
-                                            <h5 class="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px', }}>Vouch provides a customizable digital platform for voucher management of all types. </h5>
+                                            <h5 class="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px', }}>We are a team of designers, developers, and strategists, building elevated products by turning ideas into engaging digital products </h5>
 
                                             <div class="form-outline mb-4">
-                                                <input type="email" id="form2Example17" class="form-control form-control-lg" />
-                                                <label class="form-label" for="form2Example17">Email address</label>
+                                                <input type="email" id="form2Example17" placeholder='Email address' class="form-control form-control-lg" />
+                                                {/* <label class="form-label" for="form2Example17">Email address</label> */}
                                             </div>
 
                                             <div class="form-outline mb-4">
-                                                <input type="password" id="form2Example27" class="form-control form-control-lg" />
-                                                <label class="form-label" for="form2Example27">Password</label>
+                                                <input type="password" id="form2Example27" placeholder='Password' class="form-control form-control-lg" />
+                                                {/* <label class="form-label" for="form2Example27">Password</label> */}
                                             </div>
 
                                             <div class="pt-1 d-grid mb-4">
@@ -41,7 +41,7 @@ const Register = () => {
                                             </div>
 
 
-                                            <a class="small text-muted" href="#!">Forgot password?</a>
+                                            
                                             <Link to='/'><p class="mb-5 pb-lg-2"  >Do have an account? <a href="#!"
                                                 style={{ color: '#393f81' }}>Login Here!!!</a></p></Link>
                                         </form>
