@@ -6,6 +6,7 @@ import Loading from '../Loading/Loading'
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword} from 'react-firebase-hooks/auth';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SocialLogin from './SocialLogin';
 
 const Login = () => {
     const [email, setEmail] = useState()
@@ -131,6 +132,7 @@ const Login = () => {
                                     </div>
                                 </div>
                             </div>
+                            <SocialLogin></SocialLogin>
                         </div>
                     </div>
                 </div>
