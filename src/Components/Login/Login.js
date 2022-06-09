@@ -1,11 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import auth from '../../firebase.init'
+import Loading from '../Loading/Loading'
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword} from 'react-firebase-hooks/auth';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
+    const [email, setEmail] = useState()
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useSignInWithEmailAndPassword(auth, { sendEmailVerification: true });
+    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(
+        auth
+    );
+    const navigate = useNavigate();
+    const location = useLocation();
+    let from = location.state?.from?.pathname || "/trial";
+   
+        if (user) {
+            navigate(from, { replace: true });
+        }
+
+    if (loading) {
+        return <Loading></Loading>
+    }
+    let singInError;
+    if (error) {
+        singInError = <h3 className='text-danger'><small>{error.message}</small></h3>
+    }
     const onSubmit = data => {
-        console.log(data);
+        signInWithEmailAndPassword(data.email, data.password)
+        
     }
     return (
         <section className='sm-vh-100' style={{ backgroundColor: '#0a0e14' }}>
@@ -77,14 +108,22 @@ const Login = () => {
                                                     {errors.password?.type === 'minLength' && <span className="label-text-alt text-danger">{errors.password.message}</span>}
                                                 </label>
                                             </div>
-
+                                            {singInError}
                                             <div class="pt-1 d-grid mb-4">
                                                 <button class="btn btn-outline-dark btn-lg " value='LogIn' type="submit">LogIn</button>
 
                                             </div>
 
 
-                                            <a class="small text-muted" href="#!">Forgot password?</a>
+                                            <p style={{cursor: 'pointer'}}
+                                            className='text-muted'
+                                                onClick={async () => {
+                                                    await sendPasswordResetEmail(email);
+                                                    toast('Sent email');
+                                                }}
+                                                
+                                           
+                                             >Forgot password?</p>
                                             <Link to='/register'> <p class="mb-5 pb-lg-2"  >Don't have an account? <a href="#!"
                                                 style={{ color: '#393f81' }}>Register here</a></p></Link>
                                         </form>
@@ -96,6 +135,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </section>
     );
 };

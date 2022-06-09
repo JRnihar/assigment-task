@@ -1,11 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Loading from '../Loading/Loading';
+import auth from '../../firebase.init';
+
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 
 const Register = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
+    
+
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useCreateUserWithEmailAndPassword(auth);
+    let errorElement;
+    if (error) {
+        errorElement = <h3 className='text-danger'>Error: {error?.message}</h3>
+    }
+
+    const navigate = useNavigate()
+
+
+    if (user) {
+        navigate('/trial')
+    }
+
+    if (loading) {
+        return <Loading></Loading>
+    }
     const onSubmit = data => {
-        console.log(data);
+  
+        createUserWithEmailAndPassword(data.email, data.password)
     }
     return (
         <section className='sm-vh-100' style={{ backgroundColor: '#0a0e14' }}>
@@ -81,7 +109,7 @@ const Register = () => {
                                                     
                                                 
                                             </div>
-
+                                            {errorElement}
                                             <div class="pt-1 d-grid mb-4">
                                                 <button class="btn btn-outline-dark btn-lg " type="submit" value='Sing Up'>Sing Up</button>
 
